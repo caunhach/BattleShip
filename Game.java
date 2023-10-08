@@ -14,6 +14,14 @@ class Coord{
 		// System.out.println(Arrays.toString(coord));
 		return (coord);
 	}
+	public boolean check_bound(int size){
+		if (this.x >= size || this.y >= size)
+		{
+			// System.out.println("this.x: " + this.x + " this.y: " + this.y + " size: " + size);
+			return (false);
+		}
+		return (true);
+	}
 }
 
 class Ship{
@@ -46,12 +54,38 @@ class Ship{
 		}
 		// System.out.println(Arrays.toString(p1.get_coord()));
 	}
-	public ArrayList<int []> get_coord(){
-		ArrayList<int[]> list = new ArrayList<int[]>();
-		list.add(p1.get_coord());
-		list.add(p2.get_coord());
-		list.add(p3.get_coord());
-		return (list);
+	public ArrayList<int[]> get_coord(){
+		ArrayList<int[]> coordinate = new ArrayList<>();
+		coordinate.add(p1.get_coord());
+		coordinate.add(p2.get_coord());
+		coordinate.add(p3.get_coord());
+		return (coordinate);
+	}
+
+	public Boolean check_crash(ArrayList<int[]> list, int size, int option){
+		for (int[] coord : list)
+		{
+			if (Arrays.equals(coord, p1.get_coord()) && option == 0)
+				return (true);
+			if (!p1.check_bound(size))
+				return (true);
+			if (Arrays.equals(coord, p2.get_coord()) && option == 0)
+				return (true);
+			if (!p2.check_bound(size))
+				return (true);
+			if (Arrays.equals(coord, p3.get_coord()) && option == 0)
+				return (true);
+			if (!p3.check_bound(size))
+				return (true);
+		}
+		// System.out.println("survive");
+		// System.out.println("list : " + Arrays.deepToString(list.toArray()));
+		// System.out.println("p1 : " + Arrays.toString(p1.get_coord()));
+		// System.out.println("p2 : " + Arrays.toString(p2.get_coord()));
+		// System.out.println("p3 : " + Arrays.toString(p3.get_coord()));
+		// System.out.println("Size : " + size);
+		// System.out.println("option : " + option);
+		return (false);
 	}
 }
 
@@ -63,10 +97,10 @@ public class Game{
 	private ArrayList<String> list = new ArrayList<String>();
 	public Game(){
 		String tmp;
+		ArrayList<int[]> tmp_ship = new ArrayList<>();
 		gen_map();
 		tmp = One.set_name();
-		One.set_coord(size);
-		System.out.println(Arrays.deepToString(One.get_coord().toArray()));
+		// System.out.println(Arrays.deepToString(One.get_coord().toArray()));
 		list.add(tmp);
 		do{
 			tmp = Two.set_name();
@@ -76,6 +110,26 @@ public class Game{
 			tmp = Three.set_name();
 		} while(list.contains(tmp));
 		list.add(tmp);
+		while (true){
+			One.set_coord(size);
+			tmp_ship = One.get_coord();
+			if (!One.check_crash(tmp_ship, size, 1))
+				break;
+		}
+		while (true){
+			Two.set_coord(size);
+			tmp_ship = Two.get_coord();
+			if (!One.check_crash(tmp_ship, size, 0) && !Two.check_crash(tmp_ship, size, 1))
+				break;
+		}
+			// System.out.println(One.check_crash(tmp_ship, size, 0));
+			// System.out.println(Two.check_crash(tmp_ship, size, 1));
+		while (true){
+			Three.set_coord(size);
+			tmp_ship = Three.get_coord();
+			if (!One.check_crash(tmp_ship, size, 0) && !Two.check_crash(tmp_ship, size, 0) && !Three.check_crash(tmp_ship, size, 1))
+				break;
+		}
 	}
 	private void gen_map(){
 		do{
@@ -87,5 +141,8 @@ public class Game{
 	}
 	public void print_ship(){
 		System.out.println("Ships : [ " + One.get_name() + ", " + Two.get_name() + ", " + Three.get_name() + " ]");
+		System.out.println(One.get_name() + ": " + Arrays.deepToString(One.get_coord().toArray()));
+		System.out.println(Two.get_name() + ": " + Arrays.deepToString(Two.get_coord().toArray()));
+		System.out.println(Three.get_name() + ": " + Arrays.deepToString(Three.get_coord().toArray()));
 	}
 }
