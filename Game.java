@@ -44,6 +44,6 @@ public class Game{
 		return size;
 	}
 	public void print_ship(){
-		System.out.println("Ships : [ " + One.get_name() + Two.get_name() + Three.get_name());
+		System.out.println("Ships : [ " + One.get_name() + ", " + Two.get_name() + ", " + Three.get_name() + " ]");
 	}
 }
