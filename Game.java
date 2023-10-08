@@ -2,9 +2,21 @@ package BattleShip;
 
 import java.util.*;
 
+class Coord{
+	private int x;
+	private int y;
+	public void set_coord(int size){
+		x = (int) (Math.random() * (size - 1));
+		y = (int) (Math.random() * (size - 1));
+	}
+}
+
 class Ship{
 	private String Name = null;
-	static String[] list = {"Pornhub.coms", "Petshop.com", "Megahard.com", "Scam.com", "Pipex.com"};
+	private static String[] list = {"Pornhub.coms", "Petshop.com", "Megahard.com", "Scam.com", "Pipex.com"};
+	private Coord p1;
+	private Coord p2;
+	private Coord p3;
 	public String set_name(){
 		int	index = (int) (Math.random() * 4);
 		Name = list[index];
