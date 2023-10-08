@@ -36,8 +36,6 @@ class Ship{
 		int y = (int)(Math.random() * (size));
 		if (align >= 1){
 			p1.set_coord(x, y);
-			System.out.println(Arrays.toString(p1.get_coord()));
-			System.out.println(Arrays.toString(p2.get_coord()));
 			p2.set_coord(x + 1, y);
 			p3.set_coord(x + 2, y);
 		}
