@@ -1,7 +1,5 @@
 package BattleShip;
 
-import java.util.*;
-
 public class GameLauncher{
 	public static void main(String[] args){
 		System.out.println("<<<<<< Welcome to battleship game >>>>>>");
@@ -15,5 +13,6 @@ public class GameLauncher{
 		System.out.println("");
 		System.out.println("Map Size : " + game.get_size() + " " + "x" + " " + game.get_size());
 		game.print_ship();
+		StartGame new_game = new StartGame(game);
 	}
 }

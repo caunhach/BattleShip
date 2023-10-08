@@ -145,4 +145,5 @@ public class Game{
 		System.out.println(Two.get_name() + ": " + Arrays.deepToString(Two.get_coord().toArray()));
 		System.out.println(Three.get_name() + ": " + Arrays.deepToString(Three.get_coord().toArray()));
 	}
+	// public Boolean Check_hit()
 }
