@@ -3,6 +3,6 @@ Let's build a battleship game !!!. this is a simple version for practicing Java,
 
 ![played_example](https://github.com/caunhach/BattleShip/blob/main/scam.png)
 
-## Basic Rules
+## Basic Rules / What we must handle!!!
 - There are 3 dot coms with random names that randomly allocate 3 adjacent pixels of the grid.
 - When the player guesses the right coordinate, a prompt will display "hit". "kill" will be printed when all of the composited spaces of the ship are hit. Other cases are "miss".
