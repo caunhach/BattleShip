@@ -10,3 +10,4 @@ Let's build a battleship game !!!. this is a simple version for practicing Java,
   1. inputs must be only size of 2 characters
   2. the coordinate must be located within the boundary.
   3. After the end of the game only the start/exit command is allowed.
+  So, When we receive the invalid arguments, the prompt will wait until it receives right format!
