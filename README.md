@@ -11,4 +11,4 @@ Let's build a battleship game !!!. this is a simple version for practicing Java,
   2. the coordinate must be located within the boundary.
   3. After the end of the game only the start/exit command is allowed.
   So, When we receive the invalid arguments, the prompt will wait until it receives right format!
-- the program will let you put the coordinate with limited try (2 * size times). the player will win if they can destroy all ships with less that amount.
+- the program will let you put the coordinate with limited try (2 * size times). the player will win if they can destroy all ships with less that amount of times.
