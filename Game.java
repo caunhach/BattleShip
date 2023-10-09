@@ -5,28 +5,40 @@ import java.util.*;
 class Coord{
 	private int x = -1;
 	private int y = -1;
+	private Boolean hit = false;
 	public void set_coord(int x, int y){
 		this.x = x;
 		this.y = y;
 	}
 	public int[] get_coord(){
 		int[] coord = {this.x, this.y};
-		// System.out.println(Arrays.toString(coord));
 		return (coord);
 	}
 	public boolean check_bound(int size){
 		if (this.x >= size || this.y >= size)
 		{
-			// System.out.println("this.x: " + this.x + " this.y: " + this.y + " size: " + size);
 			return (false);
 		}
 		return (true);
+	}
+	public void set_hit(){
+		hit = true;
+	}
+	public Boolean get_hit(){
+		return hit;
+	}
+	public void clear_data(){
+		this.x = -1;
+		this.y = -1;
+		hit = false;
 	}
 }
 
 class Ship{
 	private String Name = null;
 	private static String[] list = {"Pornhub.coms", "Petshop.com", "Megahard.com", "Scam.com", "Pipex.com"};
+	private static final String ANSI_RESET = "\u001B[0m";
+	private static final String ANSI_GREEN = "\u001B[32m";
 	private Coord p1 = new Coord();
 	private Coord p2 = new Coord();
 	private Coord p3 = new Coord();
@@ -52,7 +64,6 @@ class Ship{
 			p2.set_coord(x, y + 1);
 			p3.set_coord(x, y + 2);
 		}
-		// System.out.println(Arrays.toString(p1.get_coord()));
 	}
 	public ArrayList<int[]> get_coord(){
 		ArrayList<int[]> coordinate = new ArrayList<>();
@@ -78,14 +89,52 @@ class Ship{
 			if (!p3.check_bound(size))
 				return (true);
 		}
-		// System.out.println("survive");
-		// System.out.println("list : " + Arrays.deepToString(list.toArray()));
-		// System.out.println("p1 : " + Arrays.toString(p1.get_coord()));
-		// System.out.println("p2 : " + Arrays.toString(p2.get_coord()));
-		// System.out.println("p3 : " + Arrays.toString(p3.get_coord()));
-		// System.out.println("Size : " + size);
-		// System.out.println("option : " + option);
 		return (false);
+	}
+	public int check_hit(int[] hit_coord){
+		if (Arrays.equals(p1.get_coord(), hit_coord) && !p1.get_hit()){
+			p1.set_hit();
+			if (p1.get_hit() && p2.get_hit() && p3.get_hit()){
+				System.out.println(ANSI_GREEN + "Ouch! You sunk " + this.Name + ": (" + ANSI_RESET);
+				System.out.println(ANSI_GREEN + "kill" + ANSI_RESET);
+				return 2;
+			}
+			else{
+				System.out.println(ANSI_GREEN + "hit" + ANSI_RESET);
+				return 1;
+			}
+		}
+		else if (Arrays.equals(p2.get_coord(), hit_coord) && !p2.get_hit()){
+			p2.set_hit();
+			if (p1.get_hit() && p2.get_hit() && p3.get_hit()){
+				System.out.println(ANSI_GREEN + "Ouch! You sunk " + this.Name + ": (" + ANSI_RESET);
+				System.out.println(ANSI_GREEN + "kill" + ANSI_RESET);
+				return 2;
+			}
+			else{
+				System.out.println(ANSI_GREEN + "hit" + ANSI_RESET);
+				return 1;
+			}
+		}
+		else if (Arrays.equals(p3.get_coord(), hit_coord) && !p3.get_hit()){
+			p3.set_hit();
+			if (p1.get_hit() && p2.get_hit() && p3.get_hit()){
+				System.out.println(ANSI_GREEN + "Ouch! You sunk " + this.Name + ": (" + ANSI_RESET);
+				System.out.println(ANSI_GREEN + "kill" + ANSI_RESET);
+				return 2;
+			}
+			else{
+				System.out.println(ANSI_GREEN + "hit" + ANSI_RESET);
+				return 1;
+			}
+		}
+		return 0;
+	}
+	public void clear_data(){
+		Name = null;
+		p1.clear_data();
+		p2.clear_data();
+		p3.clear_data();
 	}
 }
 
@@ -95,12 +144,17 @@ public class Game{
 	private Ship Two = new Ship();
 	private Ship Three = new Ship();
 	private ArrayList<String> list = new ArrayList<String>();
+	private static final String ANSI_RESET = "\u001B[0m";
+	private static final String ANSI_BLUE = "\u001B[34m";
+	private static final String ANSI_RED = "\u001B[31m";
 	public Game(){
+		setup();
+	}
+	public void setup(){
 		String tmp;
 		ArrayList<int[]> tmp_ship = new ArrayList<>();
 		gen_map();
 		tmp = One.set_name();
-		// System.out.println(Arrays.deepToString(One.get_coord().toArray()));
 		list.add(tmp);
 		do{
 			tmp = Two.set_name();
@@ -122,8 +176,6 @@ public class Game{
 			if (!One.check_crash(tmp_ship, size, 0) && !Two.check_crash(tmp_ship, size, 1))
 				break;
 		}
-			// System.out.println(One.check_crash(tmp_ship, size, 0));
-			// System.out.println(Two.check_crash(tmp_ship, size, 1));
 		while (true){
 			Three.set_coord(size);
 			tmp_ship = Three.get_coord();
@@ -140,10 +192,35 @@ public class Game{
 		return size;
 	}
 	public void print_ship(){
-		System.out.println("Ships : [ " + One.get_name() + ", " + Two.get_name() + ", " + Three.get_name() + " ]");
-		System.out.println(One.get_name() + ": " + Arrays.deepToString(One.get_coord().toArray()));
-		System.out.println(Two.get_name() + ": " + Arrays.deepToString(Two.get_coord().toArray()));
-		System.out.println(Three.get_name() + ": " + Arrays.deepToString(Three.get_coord().toArray()));
+		System.out.println(ANSI_BLUE + "Ships : [ " + One.get_name() + ", " + Two.get_name() + ", " + Three.get_name() + " ]" + ANSI_RESET);
 	}
-	// public Boolean Check_hit()
+	public Boolean Check_kill(int[] guess_coord){
+		int check_miss = 0;
+		int	exit_status = 0;
+		exit_status = One.check_hit(guess_coord);
+		if (exit_status == 2)
+			return true;
+		else if (exit_status == 0)
+			check_miss++;
+		exit_status = Two.check_hit(guess_coord);
+		if (exit_status == 2)
+			return true;
+		else if (exit_status == 0)
+			check_miss++;
+		exit_status = Three.check_hit(guess_coord);
+		if (exit_status == 2)
+			return true;
+		else if (exit_status == 0)
+			check_miss++;
+		if (check_miss == 3)
+			System.out.println(ANSI_RED + "miss" + ANSI_RESET);
+		return (false);
+	}
+	public void clear_data(){
+		this.size = 0;
+		list.clear();
+		One.clear_data();
+		Two.clear_data();
+		Three.clear_data();
+	}
 }
