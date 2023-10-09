@@ -5,7 +5,7 @@ Let's build a battleship game !!!. this is a simple version for practicing Java,
 
 ## Basic Rules / What we build!!!
 - There are 3 dot coms with random names that randomly allocate 3 adjacent pixels of the grid.
-- When the player guesses the right coordinate, a prompt will display "hit". "kill" will be printed when all of the composited spaces of the ship are hit. Other cases are "miss".
+- When the player guesses the right coordinate, a prompt will display "hit". "kill" will be printed including the ship's name when all of the composited spaces of the ship are hit. Other cases are "miss".
 - Invalid input is not allowed:
   1. inputs must be only size of 2 characters
   2. the coordinate must be located within the boundary.
@@ -14,3 +14,5 @@ Let's build a battleship game !!!. this is a simple version for practicing Java,
 - the program will let you put the coordinate with limited try (2 * size times). the player will win if they can destroy all ships with less that amount of times.
 
 ## Preparation / Plan
+We have 3 classes 
+  1. GameLauncher class: launches the game, print instruction, and lets the program exit when exit status is false (player types "exit").
