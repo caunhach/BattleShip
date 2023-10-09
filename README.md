@@ -14,7 +14,7 @@ Let's build a battleship game !!!. this is a simple version for practicing Java,
 - the program will let you put the coordinate with a limited try (2 * size times). the player will win if they can destroy all ships with less than the amount of tries.
 
 ## Preparation / Plan
-We have 3 classes 
-  GameLauncher class: launches the game, prints game instructions, and lets the program exit when exit status is false (player types "exit").
-  Game class: holds every resource we use in the game (ex. ship, coordinates)
-  StartGame class: conduct the game and handle errors that would happen!
+We have 3 classes
+- GameLauncher class: launches the game, prints game instructions, and lets the program exit when exit status is false (player types "exit").
+- Game class: holds every resource we use in the game (ex. ship, coordinates)
+- StartGame class: conduct the game and handle errors that would happen!
