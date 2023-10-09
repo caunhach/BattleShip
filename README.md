@@ -19,4 +19,4 @@ We have 3 main classes and 2 other classes
 - Game class: holds every resource we use in the game (ex. ship, coordinates)
 - StartGame class: conduct the game and handle errors that would happen!
   
-The other 2 which is used to create resource object are ship class which hold all 3 coordinates, and coordinate class that stores (z, y);
+The other 2 which is used to create resource object are ship class which hold all 3 coordinates, and coordinate class that stores (x, y);
